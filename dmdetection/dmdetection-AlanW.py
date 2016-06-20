@@ -2,9 +2,9 @@
 
 """Routine for calculating DM collision rates with a generic direct detection experiment."""
 
-__author__ = 'Alan Duffy'
-__email__ = 'mail@alanrduffy.com'
-__version__ = '0.1.0'
+__author__ = 'Grace Lawrence'
+__email__ = 'gracie2084@gmail.com'
+__version__ = '0.0.1'
 
 import astropy as ap
 import numpy as np
