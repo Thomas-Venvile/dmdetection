@@ -13,8 +13,8 @@ import numpy as np
 import math as math
 import matplotlib.pyplot as plt
 
-detvar=input("Which Detector Would You Like to Simulate?")
-dmvar=input("Which Particle Candidate/Model would you like to use: 'CDM' or 'Other'?")
+
+
 
 class Detector:
         def __init__(self, name, atomic_mass, mass_of_detector):
@@ -33,35 +33,41 @@ class DM:
 
 def run(detvar, dmvar='CDM'):
     """Accepts input and pre-set values for DM and Detector classes"""
+    detvar=input("Which Detector Would You Like to Simulate?")
     if isinstance(detvar, dict):
         det = input((Detector(detvar['name'],detvar['atomic_mass'],detvar['mass_of_detector'])))
     elif detvar == 'SABRE': 
         det = Detector('SABRE', 149.89, 50)
         print("Detector: ",det.name,"; ",  "Atomic Mass: ", det.atomic_mass,"; ", "Detector Mass: ", det.mass_of_detector)
+        break
     elif detvar == "Xenon10":
     	det = Detector('Xenon10', 131.29, 15)
     	print("Detector: ",det.name,"; ",  "Atomic Mass: ", det.atomic_mass,"; ", "Detector Mass: ", det.mass_of_detector)
+    	break
     elif detvar == "DAMA":
     	det = Detector('DAMA', 149.89, 87.3)
     	print("Detector: ",det.name,"; ",  "Atomic Mass: ", det.atomic_mass,"; ", "Detector Mass: ", det.mass_of_detector)
+    	break
     else:
     	detvar= ""
-    while detvar != "SABRE" and detvar != "Xenon10" and detvar != "DAMA":
-    	detvar=input("Please Pass a Valid Detector: ")
+    #while detvar != "SABRE" and detvar != "Xenon10" and detvar != "DAMA":
+    #	detvar=input("Please Pass a Valid Detector: ")
     
-
+dmvar=input("Which Particle Candidate/Model would you like to use: 'CDM' or 'Other'?")
     if isinstance(dmvar, dict):
          dm_p = DM(dmvar['density'], dmvar['velocity'], dmvar['mass'], dmvar['cross_section'])
     elif dmvar == 'CDM':
         dm_p = DM(0.3, 2.3e7, 100, 1e-36)
         print("DM Density: ", dm_p.density,"; ", "DM Velocity: ", dm_p.velocity,"; ", "Particle Mass: ",dm_p.mass,"; ", "Cross Section",dm_p.cross_section)
+        break
     elif dmvar == 'Other':
         dm_p = DM(float(input("DM Density?(GeV/cm**2): ")),(input("DM Velocity?(cm/s): ")), (input("Particle Mass?(GeV): ")), (input("Cross Section?(cm**2): "))  )
         print("DM Density: ", dm_p.density,"; ", "DM Velocity: ", dm_p.velocity,"; ", "Particle Mass: ",dm_p.mass,"; ", "Cross Section",dm_p.cross_section)
+        break
     else:
     	dmvar=""
-    while dmvar != "CDM" and dmvar != "Other":
-    	dmvar=input("Please specify a valid candidate/model: ")
+    #while dmvar != "CDM" and dmvar != "Other":
+    #	dmvar=input("Please specify a valid candidate/model: ")
     
     return (det, dm_p)
     #return crash statement.         
