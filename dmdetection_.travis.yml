@@ -26,9 +26,9 @@ before_install:
 
  # - sudo pip install cosmolopy
 
-notifications:
+#notifications:
 
-  email: false
+ # email: false
 
 
 
@@ -37,7 +37,7 @@ notifications:
 
 #install:
 
-  - sudo pip install commah
+  #- sudo pip install commah
 
 
 
