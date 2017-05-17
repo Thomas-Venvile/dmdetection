@@ -11,6 +11,8 @@ import astropy as ap
 from astropy import constants as const
 from astropy import units as units
 import scipy 
+from scipy import stats
+from scipy.stats import maxwell
 import numpy as np
 from random import randrange, uniform, randint
 import math as math
@@ -31,7 +33,7 @@ class DM:
             """Class for variables of DM model"""
             self.density=density * ap.units.GeV / ap.units.cm**3 
             self.velocity=velocity * ap.units.cm / ap.units.s
-            self.mass=mass * ap.units.GeV #/ const.c**2
+            self.mass=mass * units.GeV / const.c**2.
             self.cross_section=cross_section * ap.units.cm**2
 
 
@@ -94,6 +96,25 @@ def calcrate_1(dm_p):
     plt.show()
     plt.clf()
 
+
+
+def vel_dsitribution(dm_p): #reads in particle class details
+	vrange = 10.**(np.linspace(1.,3.,num=100000.)) * units.km/units.s
+	print vrange
+	mass =10.*units.GeV/const.c**2
+	temp = (0.5 * dm_p.mass* (230. * units.km/units.s)**2)/const.k_B
+	print "Effective temp for DM particles moving at 230km/s ", temp.to(units.Kelvin)
+	a = np.sqrt(const.k_B * temp/mass)
+	print "Normalisation velocity ",a
+	scale = a
+	rv = maxwell.pdf(vrange, loc=0, scale=scale)
+	plt.plot(vrange,rv,'-',color='b')
+	plt.show()
+
+	v_values = maxwell.rvs(size=10000, loc=0, scale=scale)
+	plt.hist(v_values,1000,color='b',normed=1)
+	plt.show()
+	
 #create a maxwellian curve that randomly distributes a velocity between 0 and like, 232 (vmax).  
 #Assuming the detector is on the solar sytem reference frame (stationary), then the recoil energy taken from Lewin and Smith ;
 def recoil_energy(dm_p,det,N_particles):
@@ -181,5 +202,6 @@ det,dm_p=run(detvar, dmvar)
 E_r = recoil_energy(dm_p,det,N_particles)
 Helm_form = helm_form(dm_p, det,E_r)
 Effective_cross_section(Helm_form)
+vel_dsitribution(dm_p)
 quenching_fact(E_r)
 
