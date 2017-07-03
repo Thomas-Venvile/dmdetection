@@ -98,7 +98,7 @@ def calcrate_1(dm_p):
 
 
 
-def vel_distribution(dm_p): #reads in particle class details
+def vel_dsitribution(dm_p): #reads in particle class details
 	vrange = 10.**(np.linspace(1.,3.,num=100000.)) * units.km/units.s
 	print vrange
 	mass =10.*units.GeV/const.c**2
@@ -202,6 +202,6 @@ det,dm_p=run(detvar, dmvar)
 E_r = recoil_energy(dm_p,det,N_particles)
 Helm_form = helm_form(dm_p, det,E_r)
 Effective_cross_section(Helm_form)
-vel_distribution(dm_p)
+vel_dsitribution(dm_p)
 quenching_fact(E_r)
 
